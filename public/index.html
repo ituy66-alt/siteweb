@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-left">
+      <span class="logo">Flux</span>
+    </div>
+    <div class="nav-center">
+      <a href="#" class="nav-link active" data-page="home">Home</a>
+      <a href="#" class="nav-link" data-page="services">Services</a>
+      <a href="#" class="nav-link discord-link" data-page="discord">Discord</a>
+    </div>
+    <div class="nav-right">
+      <!-- Cart icon -->
+      <div class="cart-btn" id="cartBtn" style="display:none">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+      </div>
+      <!-- User -->
+      <div id="userArea">
+        <button class="btn-connect" id="connectBtn" onclick="openLoginModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+          Se connecter
+        </button>
+        <div class="user-info" id="userInfo" style="display:none">
+          <img id="userAvatar" src="" alt="avatar" class="user-avatar" />
+          <span id="userName"></span>
+          <button onclick="logout()" class="logout-btn" title="Déconnexion">✕</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGES -->
+  <main id="app">
+
+    <!-- HOME PAGE -->
+    <div id="page-home" class="page active">
+      <section class="hero">
+        <div class="hero-badge">Services Premium</div>
+        <h1>Élevez Votre<br /><span class="gradient-text">Expérience</span></h1>
+        <p>Accédez à nos produits premium. Mis à jour régulièrement, livrés instantanément.</p>
+        <div class="btn-group">
+          <button class="btn-primary" onclick="navigate('services')">
+            Parcourir les Services
+          </button>
+          <a href="https://discord.gg/" target="_blank" class="btn-outline">
+            Rejoindre la communauté
+          </a>
+        </div>
+        <div class="hero-badge-bottom">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Livraison instantanée & Mis à jour régulièrement
+        </div>
+      </section>
+
+      <section class="why-section">
+        <h2>Pourquoi Choisir <span class="gradient-text">Flux</span></h2>
+        <p class="why-sub">Nous fournissons des produits premium avec des mises à jour régulières et un support dédié</p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Livraison Instantanée</h3>
+            <p>Accès immédiat après achat. Aucune attente.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Sécurisé</h3>
+            <p>Authentification Discord. Vos données sont protégées.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Mises à jour</h3>
+            <p>Tous nos produits sont maintenus et mis à jour régulièrement.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💬</div>
+            <h3>Support Discord</h3>
+            <p>Une équipe disponible sur notre serveur Discord.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SERVICES PAGE -->
+    <div id="page-services" class="page">
+      <section class="services-section">
+        <div class="section-header">
+          <h2>Nos <span class="gradient-text">Services</span></h2>
+          <p>Tous nos produits disponibles au téléchargement</p>
+        </div>
+        <div class="services-toolbar">
+          <div class="category-filter" id="categoryFilter">
+            <button class="cat-btn active" data-cat="all">Fortnite</button>
+            <button class="cat-btn" data-cat="Zelda BOTW">Zelda BOTW</button>
+          </div>
+        </div>
+        <div class="products-grid" id="productsGrid">
+          <div class="loading-state">Chargement...</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- LIBRARY PAGE -->
+    <div id="page-library" class="page">
+      <section class="services-section">
+        <div class="section-header">
+          <h2>Ma <span class="gradient-text">Library</span></h2>
+          <p>Tous vos produits achetés</p>
+        </div>
+        <div class="products-grid" id="libraryGrid">
+          <div class="empty-state">Connecte-toi pour voir ta library.</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- DISCORD PAGE -->
+    <div id="page-discord" class="page">
+      <section class="hero" style="min-height:80vh">
+        <div class="hero-badge" style="background:rgba(114,137,218,0.15);border-color:rgba(114,137,218,0.3);color:#7289da">Discord</div>
+        <h1>Rejoins notre<br /><span style="color:#7289da">Communauté</span></h1>
+        <p>Support, annonces, et bien plus sur notre serveur Discord.</p>
+        <a href="https://discord.gg/" target="_blank" class="btn-primary" style="background:#7289da;color:#fff">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+          Rejoindre le Discord
+        </a>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- PRODUCT PAGE (plein écran) -->
+  <div id="page-product" class="page">
+    <div class="product-page">
+      <button class="product-page-close" onclick="closeProductPage()">✕</button>
+      <div class="product-page-inner">
+        <!-- LEFT -->
+        <div class="product-page-left">
+          <div class="product-page-img-wrap">
+            <img id="ppImage" src="" alt="" class="product-page-img" />
+            <div id="ppImgPlaceholder" class="product-page-img-placeholder">📦</div>
+          </div>
+          <div class="product-page-desc-box">
+            <h3 style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:12px">Description</h3>
+            <p id="ppDescription" class="product-page-desc"></p>
+          </div>
+          <!-- REVIEWS -->
+          <div class="reviews-section">
+            <h3 style="font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px">Avis</h3>
+            <div id="reviewsList"></div>
+            <!-- Formulaire avis -->
+            <div id="reviewForm" style="display:none">
+              <div class="form-divider" style="margin:20px 0"></div>
+              <h4 style="font-size:0.85rem;font-weight:600;margin-bottom:12px">Laisser un avis</h4>
+              <div class="stars-input" id="starsInput">
+                <span class="star-btn" data-v="1">★</span>
+                <span class="star-btn" data-v="2">★</span>
+                <span class="star-btn" data-v="3">★</span>
+                <span class="star-btn" data-v="4">★</span>
+                <span class="star-btn" data-v="5">★</span>
+              </div>
+              <textarea id="reviewComment" placeholder="Ton commentaire..." class="input-field textarea-field" style="margin-top:10px;min-height:70px"></textarea>
+              <button class="btn-primary" style="width:100%;margin-top:4px" onclick="submitReview()">Publier l'avis</button>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT -->
+        <div class="product-page-right">
+          <div class="product-page-sticky">
+            <div class="product-page-badge" id="ppBadge">Nouveau</div>
+            <h1 id="ppName" class="product-page-title"></h1>
+            <div class="product-page-rating" id="ppRating"></div>
+            <div class="product-page-info-rows">
+              <div class="product-page-info-row">
+                <span class="ppi-label">Prix</span>
+                <span class="ppi-value" id="ppPrice"></span>
+              </div>
+              <div class="product-page-info-row">
+                <span class="ppi-label">Livraison</span>
+                <span class="ppi-value" style="color:#4ade80">⚡ Instantanée</span>
+              </div>
+            </div>
+            <!-- Boutons normaux -->
+            <div id="ppBuySection">
+              <button class="btn-buy" id="ppBuyBtn" onclick="openBuyModal()">Buy Now</button>
+              <a id="ppDownloadBtn" href="#" target="_blank" class="pp-dl-btn" style="display:none">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Télécharger
+              </a>
+            </div>
+            <!-- Boutons admin -->
+            <div id="ppAdminSection" style="display:none">
+              <div class="form-divider" style="margin:16px 0"></div>
+              <h4 style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:12px">Admin</h4>
+              <button class="btn-outline" style="width:100%;margin-bottom:8px;justify-content:center" onclick="openEditModal()">
+                ✏️ Modifier le produit
+              </button>
+              <button onclick="deleteProduct()" style="width:100%;padding:10px;border-radius:8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);color:#f87171;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='rgba(220,38,38,0.2)'" onmouseout="this.style.background='rgba(220,38,38,0.1)'">
+                🗑️ Supprimer le produit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUY MODAL -->
+  <div id="buyModal" class="modal-overlay" style="display:none">
+    <div class="modal-box modal-small">
+      <button class="modal-close" onclick="closeModal('buyModal')">✕</button>
+      <h3 style="margin-bottom:8px">Finaliser l'achat</h3>
+      <p style="color:rgba(255,255,255,0.4);font-size:0.85rem;margin-bottom:24px">Entre ton email pour recevoir la confirmation</p>
+      <input type="email" id="buyEmail" placeholder="ton@email.com" class="input-field" />
+      <button class="btn-buy" style="margin-top:16px;width:100%" onclick="confirmBuy()">Confirmer l'achat</button>
+    </div>
+  </div>
+
+  <!-- EDIT PRODUCT MODAL -->
+  <div id="editModal" class="modal-overlay" style="display:none">
+    <div class="modal-box modal-small" style="max-width:480px">
+      <button class="modal-close" onclick="closeModal('editModal')">✕</button>
+      <h3 style="margin-bottom:20px">✏️ Modifier le produit</h3>
+
+      <label class="edit-label">Nom du produit</label>
+      <input type="text" id="eName" placeholder="Nom du produit" class="input-field" />
+
+      <label class="edit-label">Prix (€)</label>
+      <input type="text" id="ePrice" placeholder="ex: 9.99 — laisser 0 pour gratuit" class="input-field" />
+
+      <label class="edit-label">Image</label>
+      <div class="image-input-group">
+        <input type="text" id="eImageUrl" placeholder="Lien de l'image (URL)" class="input-field" />
+        <span style="color:rgba(255,255,255,0.3);font-size:0.8rem;text-align:center;margin:4px 0">ou</span>
+        <div style="display:flex;gap:8px">
+          <label class="file-label" style="flex:1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Reupload
+            <input type="file" id="eImageFile" accept="image/*" style="display:none" onchange="previewEditImage(this)" />
+          </label>
+          <button type="button" onclick="removeEditImage()" style="background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);color:#f87171;border-radius:8px;padding:9px 12px;font-size:0.78rem;cursor:pointer;white-space:nowrap;transition:background 0.2s" onmouseover="this.style.background='rgba(220,38,38,0.2)'" onmouseout="this.style.background='rgba(220,38,38,0.1)'">
+            🗑 Supprimer
+          </button>
+        </div>
+        <img id="eImagePreview" src="" alt="" style="display:none;width:100%;border-radius:8px;margin-top:8px;max-height:120px;object-fit:cover" />
+      </div>
+
+      <label class="edit-label">Lien de téléchargement</label>
+      <input type="text" id="eDownload" placeholder="https://..." class="input-field" />
+
+      <label class="edit-label">Catégorie</label>
+      <select id="eCategory" class="input-field select-field">
+        <option value="">Aucune catégorie</option>
+        <option value="Fortnite">Fortnite</option>
+        <option value="Zelda BOTW">Zelda BOTW</option>
+      </select>
+
+      <label class="edit-label">Description</label>
+      <textarea id="eDesc" placeholder="Description du produit..." class="input-field textarea-field"></textarea>
+
+      <button class="btn-primary" style="width:100%;margin-top:8px" onclick="saveEdit()">
+        ✅ Enregistrer les modifications
+      </button>
+    </div>
+  </div>
+  <div id="banModal" class="modal-overlay" style="display:none">
+    <div class="modal-box modal-small">
+      <button class="modal-close" onclick="closeModal('banModal')">✕</button>
+      <h3 style="margin-bottom:8px">🔨 Bannir cette IP</h3>
+      <p id="banModalIp" style="color:rgba(255,255,255,0.4);font-size:0.82rem;margin-bottom:20px;font-family:monospace"></p>
+      <input type="text" id="banReason" placeholder="Raison du ban (optionnel)" class="input-field" />
+      <button class="btn-buy" style="margin-top:12px;width:100%;background:#dc2626" onclick="confirmBanIp()">Confirmer le ban</button>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="modal-overlay" style="display:none">
+    <div class="modal-box modal-small">
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+      <div style="text-align:center;margin-bottom:24px">
+        <div style="font-size:2rem;margin-bottom:10px">🔑</div>
+        <h3 style="font-size:1.1rem;margin-bottom:6px">Connexion via Discord</h3>
+        <p style="color:rgba(255,255,255,0.4);font-size:0.82rem;line-height:1.6">
+          Tape <strong style="color:rgba(255,255,255,0.7)">/verifysite</strong> dans Discord<br/>pour obtenir ton code à 6 chiffres
+        </p>
+      </div>
+      <div class="code-inputs" id="codeInputs">
+        <input type="text" maxlength="1" class="code-digit" data-index="0" />
+        <input type="text" maxlength="1" class="code-digit" data-index="1" />
+        <input type="text" maxlength="1" class="code-digit" data-index="2" />
+        <input type="text" maxlength="1" class="code-digit" data-index="3" />
+        <input type="text" maxlength="1" class="code-digit" data-index="4" />
+        <input type="text" maxlength="1" class="code-digit" data-index="5" />
+      </div>
+      <p id="loginError" style="color:#f87171;font-size:0.8rem;text-align:center;margin-top:10px;display:none"></p>
+      <button class="btn-buy" style="margin-top:16px" onclick="submitVerifyCode()">Vérifier</button>
+    </div>
+  </div>
+
+  <!-- CART DROPDOWN -->
+  <div id="cartDropdown" class="cart-dropdown" style="display:none">
+    <div class="cart-header">
+      <span>Mes achats</span>
+      <button class="cart-go-library" onclick="navigate('library');closeCart()">Voir la Library →</button>
+    </div>
+    <div id="cartItems"></div>
+  </div>
+
+  <!-- ADMIN FAB -->
+  <div id="adminFab" class="admin-fab" style="display:none">
+    <div class="admin-panel" id="adminPanel" style="display:none">
+      <div class="admin-panel-header">
+        <span>Admin Panel</span>
+        <button onclick="toggleAdminPanel()" style="background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:1.1rem">✕</button>
+      </div>
+      <div class="admin-toggle-row">
+        <span>Mode Admin</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="adminToggle" onchange="toggleAdminMode(this)" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div id="addProductForm" style="display:none">
+        <div class="form-divider"></div>
+        <h4 style="margin-bottom:14px;font-size:0.85rem;color:rgba(255,255,255,0.6);letter-spacing:0.1em;text-transform:uppercase">Ajouter un produit</h4>
+        <input type="text" id="pName" placeholder="Nom du produit" class="input-field" />
+        <input type="text" id="pPrice" placeholder="Prix (ex: 9.99)" class="input-field" />
+        <select id="pCategory" class="input-field select-field">
+          <option value="" disabled selected>Catégorie</option>
+          <option value="Fortnite">Fortnite</option>
+          <option value="Zelda BOTW">Zelda BOTW</option>
+        </select>
+        <div class="image-input-group">
+          <input type="text" id="pImageUrl" placeholder="Lien de l'image (URL)" class="input-field" />
+          <span style="color:rgba(255,255,255,0.3);font-size:0.8rem;text-align:center;margin:4px 0">ou</span>
+          <label class="file-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Choisir un fichier
+            <input type="file" id="pImageFile" accept="image/*" style="display:none" onchange="previewImage(this)" />
+          </label>
+          <img id="imagePreview" src="" alt="" style="display:none;width:100%;border-radius:8px;margin-top:8px;max-height:120px;object-fit:cover" />
+        </div>
+        <input type="text" id="pDownload" placeholder="Lien de téléchargement" class="input-field" />
+        <textarea id="pDesc" placeholder="Description du produit" class="input-field textarea-field"></textarea>
+        <button class="btn-primary" style="width:100%;margin-top:8px" onclick="submitProduct()">
+          Ajouter le produit
+        </button>
+      </div>
+      <!-- IP LOGS -->
+      <div id="ipLogsSection" style="display:none">
+        <div class="form-divider"></div>
+        <h4 style="margin-bottom:14px;font-size:0.85rem;color:rgba(255,255,255,0.6);letter-spacing:0.1em;text-transform:uppercase">Log IP — Utilisateurs</h4>
+        <div id="ipLogsList"></div>
+        <div class="form-divider"></div>
+        <h4 style="margin-bottom:14px;font-size:0.85rem;color:#f87171;letter-spacing:0.1em;text-transform:uppercase">IPs Bannies</h4>
+        <div id="bansList"></div>
+      </div>
+    </div>
+    <button class="fab-btn" onclick="toggleAdminPanel()" title="Admin">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+    </button>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

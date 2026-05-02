@@ -1,0 +1,9 @@
+node_modules/
+server/node_modules/
+bot discord/node_modules/
+server/.env
+server/data/*.db
+server/data/sessions.db
+public/uploads/
+*.bat
+.vscode/

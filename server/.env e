@@ -1,0 +1,12 @@
+# Discord OAuth2
+DISCORD_CLIENT_ID=1499806193055436851
+DISCORD_CLIENT_SECRET=MKCA0p7OAsmizHQNXX4dA7qUaLto2Nz1
+DISCORD_REDIRECT_URI=http://localhost:3000/auth/discord/callback
+DISCORD_BOT_TOKEN=TON_BOT_TOKEN
+
+# Session
+SESSION_SECRET=slfdsdegjsgksdfkdgfjgsgtkfhtkhdgkdrgdkrgdfrhjfkfdgfdjgfdjgdfhkrfdhjrdfhfdkghdfjghfdghkdrthgjdrhgdrjgdrkgtdrfjgdfjkgdrhjtfhrdjgdrtjyh
+
+# Server
+PORT=3000
+BASE_URL=http://localhost:3000
